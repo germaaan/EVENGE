@@ -127,7 +127,8 @@ class MostrarEvento(webapp2.RequestHandler):
         user = controladorUsuario.getUsuarioLogeado(self)
         idEvento = self.request.get('id')
         evento = controladorEvento.GetEventoById(idEvento)
-        asistentes = controladorEvento.getAsistentesEvento(idEvento);
+        asistentes = controladorEvento.getAsistentesEvento(idEvento)
+        ponentes = controladorPonente.listarPonentes(self)
         print("Asistentes:"+str(asistentes))
         if user != False:
             userLogin = True
@@ -141,7 +142,8 @@ class MostrarEvento(webapp2.RequestHandler):
                            'numeroEventos':numeroEventos,
                            'id':idEvento,
                            'usuario': user,
-                           'asistentes':asistentes}
+                           'asistentes':asistentes,
+                           'ponentes':ponentes}
         template = JINJA_ENVIRONMENT.get_template('templates/templateEvents.html')
         self.response.write(template.render(template_values))
 
